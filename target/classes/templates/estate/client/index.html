@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Client List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+    <h1 class="mt-4 mb-4">Client List</h1>
+    <a class="btn btn-outline-primary" th:href="@{/clients/create}">Add new client</a>
+    <table class="table table-striped">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Budget</th>
+            <th>Details</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        <tr th:each="client: ${clients}">
+            <td th:text="${client.getId()}"></td>
+            <td th:text="${client.getName()}"></td>
+            <td th:text="${client.getEmail()}"></td>
+            <td th:text="${client.getPhoneNumber()}"></td>
+            <td th:text="${client.getBudget()}"></td>
+            <td>
+                <a th:href="@{/clients/{id}(id=${client.getId()})}" class="btn btn-primary">Details</a>
+            </td>
+            <td>
+                <a class="btn btn-warning btn-block mb-2" th:href="@{/clients/edit/{id}(id=${client.getId()})}">Edit</a>
+            </td>
+            <td>
+                <form th:action="@{/clients/delete/{id}(id=${client.getId()})}" method="post">
+                    <button class="btn btn-danger" type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <a th:href="@{/}" class="btn btn-secondary">Back</a>
+</div>
+</body>
+</html>

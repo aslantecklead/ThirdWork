@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Estates</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-4 mb-4">List of Estates</h1>
+    <a class="btn btn-outline-primary" th:href="@{/estates/create}">Add new Estate</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Address</th>
+            <th>Bedrooms</th>
+            <th>Bathrooms</th>
+            <th>Price</th>
+            <th>Details</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="estate: ${estates}">
+            <td th:text="${estate.getId()}"></td>
+            <td th:text="${estate.getAddress()}"></td>
+            <td th:text="${estate.getBedrooms()}"></td>
+            <td th:text="${estate.getBathrooms()}"></td>
+            <td th:text="${estate.getPrice()}"></td>
+            <td>
+                <a th:href="@{/estates/{id}(id=${estate.getId()})}" class="btn btn-primary">Details</a>
+            </td>
+            <td>
+                <a class="btn btn-warning btn-block mb-2" th:href="@{/estates/edit/{id}(id=${estate.getId()})}">Edit</a>
+            </td>
+            <td>
+                <form th:action="@{/estates/delete/{id}(id=${estate.getId()})}" method="post">
+                    <button class="btn btn-danger" type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/}" class="btn btn-secondary">Back</a>
+</div>
+</body>
+</html>

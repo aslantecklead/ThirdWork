@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Showing Schedule Details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-4">Showing Schedule Details</h1>
+    <div class="mt-4">
+        <p>ID: <span th:text="${showingSchedule.id}"></span></p>
+        <p>Property: <span th:text="${showingSchedule.property}"></span></p>
+        <p>Date: <span th:text="${#dates.format(showingSchedule.date, 'dd-MM-yyyy')}"></span></p>
+        <p>Client Name: <span th:text="${showingSchedule.clientName}"></span></p>
+    </div>
+
+    <a class="btn btn-primary mt-4" th:href="@{/showing-schedules}">Back to List</a>
+</div>
+</body>
+</html>

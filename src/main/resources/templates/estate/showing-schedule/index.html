@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Showing Schedule List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+    <h1 class="mt-4 mb-4">Showing Schedule List</h1>
+    <a class="btn btn-outline-primary" th:href="@{/showing-schedules/create}">Add new Offer</a>
+    <table class="table table-striped">
+        <tr>
+            <th>ID</th>
+            <th>Property</th>
+            <th>Date</th>
+            <th>Client Name</th>
+            <th>Details</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        <tr th:each="showingSchedule : ${showingSchedules}">
+            <td th:text="${showingSchedule.getId()}"></td>
+            <td th:text="${showingSchedule.getProperty()}"></td>
+            <td th:text="${#dates.format(showingSchedule.getDate(), 'dd-MM-yyyy')}"></td>
+            <td th:text="${showingSchedule.getClientName()}"></td>
+            <td>
+                <a th:href="@{/showing-schedules/{id}(id=${showingSchedule.getId()})}" class="btn btn-primary">Details</a>
+            </td>
+            <td>
+                <a class="btn btn-warning btn-block mb-2" th:href="@{/showing-schedules/edit/{id}(id=${showingSchedule.getId()})}">Edit</a>
+            </td>
+            <td>
+                <form th:action="@{/showing-schedules/delete/{id}(id=${showingSchedule.getId()})}" method="post">
+                    <button class="btn btn-danger" type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <a th:href="@{/}" class="btn btn-secondary">Back</a>
+</div>
+</body>
+</html>

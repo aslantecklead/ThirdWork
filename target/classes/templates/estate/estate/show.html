@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Details of Estate</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-4">Details of Estate</h1>
+    <p class="mt-3">ID: <span th:text="${estate.getId()}"></span></p>
+    <p>Address: <span th:text="${estate.getAddress()}"></span></p>
+    <p>Bedrooms: <span th:text="${estate.getBedrooms()}"></span></p>
+    <p>Bathrooms: <span th:text="${estate.getBathrooms()}"></span></p>
+    <p>Price: $<span th:text="${estate.getPrice()}"></span></p>
+    <a th:href="@{/estate}" class="btn btn-primary">Back to List</a>
+</div>
+</body>
+</html>

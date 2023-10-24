@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 50vh;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-4">Welcome to our Real Estate Agency</h1>
+    <p class="text-center">Choose an option to navigate:</p>
+
+    <a th:href="@{/estates}" class="btn btn-primary btn-block mb-2">View Estates</a>
+    <a th:href="@{/clients}" class="btn btn-success btn-block mb-2">Browse Clients</a>
+    <a th:href="@{/deals}" class="btn btn-info btn-block mb-2">Explore Deals</a>
+    <a th:href="@{/offers}" class="btn btn-warning btn-block mb-2">Discover Offers</a>
+    <a th:href="@{/showing-schedules}" class="btn btn-danger btn-block mb-2">Make Showing Schedule</a>
+</div>
+</body>
+</html>

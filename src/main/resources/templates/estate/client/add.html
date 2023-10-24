@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${title}">Add Client</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+        crossorigin="anonymous">
+</head>
+<body>
+<main class="bd-main order-1">
+  <div class="container mt-5 p-2">
+    <h1 class="text-center">Add Client</h1>
+    <form th:action="@{/clients/store}" th:object="${client}" method="post" class="row g-3">
+      <div class="col-md-6">
+        <label for="name" class="form-label">Name</label>
+        <input th:field="*{name}" type="text" class="form-control" id="name">
+      </div>
+      <div class="col-md-6">
+        <label for="email" class="form-label">Email</label>
+        <input th:field="*{email}" type="email" class="form-control" id="email">
+      </div>
+      <div class="col-12">
+        <label for="phoneNumber" class="form-label">Phone Number</label>
+        <input th:field="*{phoneNumber}" type="tel" class="form-control" id="phoneNumber">
+      </div>
+      <div class="col-12">
+        <label for="budget" class="form-label">Budget</label>
+        <input th:field="*{budget}" type="number" class="form-control" id="budget">
+      </div>
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary">Add</button>
+      </div>
+    </form>
+  </div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+</html>

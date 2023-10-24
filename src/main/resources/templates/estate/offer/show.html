@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Offer Details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-4">Offer Details</h1>
+    <div class="mt-4">
+        <p>ID: <span th:text="${offer.id}"></span></p>
+        <p>Property Description: <span th:text="${offer.propertyDescription}"></span></p>
+        <p>Price: <span th:text="${offer.price}"></span></p>
+        <p>Agent Name: <span th:text="${offer.agentName}"></span></p>
+    </div>
+
+    <a class="btn btn-primary mt-4" th:href="@{/offers}">Back to List</a>
+</div>
+</body>
+</html>
