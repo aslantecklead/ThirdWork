@@ -1,12 +1,22 @@
 package com.example.secondwork.model;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+
+@Entity
+@Table(name = "offer")
 public class Offer {
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+    @NotBlank(message = "Field 'Description' can not be blank!")
     private String propertyDescription;
+    @NotBlank(message = "Field 'Price' can not be blank!")
     private double price;
+    @NotBlank(message = "Field 'Agent Name' can not be blank!")
     private String agentName;
 
-    public Offer(long id, String propertyDescription, double price, String agentName) {
+    public Offer(int id, String propertyDescription, double price, String agentName) {
         this.id = id;
         this.propertyDescription = propertyDescription;
         this.price = price;
@@ -33,7 +43,7 @@ public class Offer {
         return agentName;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

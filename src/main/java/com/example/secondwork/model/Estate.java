@@ -1,10 +1,21 @@
 package com.example.secondwork.model;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+
+@Entity
+@Table(name = "estate")
 public class Estate {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    @NotBlank(message = "Field 'Address' can not be blank!")
     private String address;
+    @NotBlank(message = "Field 'Bedrooms' can not be blank!")
     private int bedrooms;
+    @NotBlank(message = "Field 'Bathrooms' can not be blank!")
     private int bathrooms;
+    @NotBlank(message = "Field 'Price' can not be blank!")
     private double price;
 
     public Estate(int id, String address, int bedrooms, int bathrooms, double price) {

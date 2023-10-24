@@ -1,17 +1,22 @@
 package com.example.secondwork.model;
 
+import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
+@Entity
+@Table(name = "showingSchedule")
 public class ShowingSchedule {
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
     private String property;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
     private String clientName;
 
-    public ShowingSchedule(long id, String property, Date date, String clientName) {
+    public ShowingSchedule(int id, String property, Date date, String clientName) {
         this.id = id;
         this.property = property;
         this.date = date;
@@ -38,7 +43,7 @@ public class ShowingSchedule {
         return clientName;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
