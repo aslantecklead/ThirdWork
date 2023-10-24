@@ -1,6 +1,8 @@
 package com.example.secondwork.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -11,9 +13,12 @@ public class ShowingSchedule {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    @NotBlank(message = "Field 'Property' can not be blank!")
     private String property;
+    @NotNull(message = "Field 'Date' can not be blank!")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
+    @NotBlank(message = "Field 'Client Name' can not be blank!")
     private String clientName;
 
     public ShowingSchedule(int id, String property, Date date, String clientName) {

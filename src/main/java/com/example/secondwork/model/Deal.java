@@ -2,7 +2,7 @@ package com.example.secondwork.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import org.springframework.format.annotation.DateTimeFormat;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Date;
 
@@ -16,8 +16,8 @@ public class Deal {
     private String property;
     @NotBlank(message = "Field 'Price' can not be blank!")
     private double price;
-    @NotBlank(message = "Field 'Date' can not be blank!")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "Field 'Date' can not be blank!")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
     public Deal(int id, String property, double price, Date date) {
