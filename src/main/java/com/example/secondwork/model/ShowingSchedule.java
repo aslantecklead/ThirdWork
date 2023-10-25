@@ -15,11 +15,14 @@ public class ShowingSchedule {
     private int id;
     @NotBlank(message = "Field 'Property' can not be blank!")
     private String property;
+
     @NotNull(message = "Field 'Date' can not be blank!")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
+
     @NotBlank(message = "Field 'Client Name' can not be blank!")
     private String clientName;
+
 
     public ShowingSchedule(int id, String property, Date date, String clientName) {
         this.id = id;

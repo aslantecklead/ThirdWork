@@ -1,6 +1,5 @@
 package com.example.secondwork.controller;
 
-import com.example.secondwork.model.Deal;
 import com.example.secondwork.model.ShowingSchedule;
 import com.example.secondwork.repository.SceduleRepository;
 import jakarta.validation.Valid;
@@ -39,7 +38,7 @@ public class SceduleController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public String create(Deal deal) {
+    public String create(ShowingSchedule showingSchedule) {
         return "estate/showing-schedule/add";
     }
 

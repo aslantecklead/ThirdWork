@@ -11,12 +11,15 @@ public class Offer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @NotBlank(message = "Field 'Description' can not be blank!")
     private String propertyDescription;
+
     @NotNull(message = "Field 'Price' can not be null!")
     @Min(value = 0, message = "Field 'Price' must be a positive number!")
-    private double price;
-    @NotNull(message = "Field 'Agent Name' can not be null!")
+    private Double price = 0.0; // Устанавливаем значение по умолчанию на ноль
+
+    @NotBlank(message = "Field 'Agent Name' can not be blank!")
     private String agentName;
 
     public Offer(int id, String propertyDescription, double price, String agentName) {

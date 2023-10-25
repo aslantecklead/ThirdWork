@@ -1,6 +1,5 @@
 package com.example.secondwork.controller;
 
-import com.example.secondwork.model.Estate;
 import com.example.secondwork.model.Offer;
 import com.example.secondwork.repository.OfferRepository;
 import jakarta.validation.Valid;
@@ -39,7 +38,7 @@ public class OfferController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public String create(Estate estate) {
+    public String create(Offer offer) {
         return "estate/offer/add";
     }
 
@@ -52,6 +51,6 @@ public class OfferController {
         model.addAttribute("offer", offerRepository.findAll());
         return "redirect:/offers";
     }
-    
-    
+
+
 }

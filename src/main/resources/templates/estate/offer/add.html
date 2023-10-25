@@ -16,14 +16,17 @@
       <div class="col-12">
         <label for="propertyDescription" class="form-label">Property Description</label>
         <input th:field="*{propertyDescription}" type="text" class="form-control" id="propertyDescription">
+        <p th:if="${#fields.hasErrors('propertyDescription')}" th:errors="*{propertyDescription}" style="color: red"></p>
       </div>
       <div class="col-6">
         <label for="price" class="form-label">Price</label>
         <input th:field="*{price}" type="number" class="form-control" id="price">
+        <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}" style="color: red"></p>
       </div>
       <div class="col-6">
         <label for="agentName" class="form-label">Agent Name</label>
         <input th:field="*{agentName}" type="text" class="form-control" id="agentName">
+        <p th:if="${#fields.hasErrors('agentName')}" th:errors="*{agentName}" style="color: red"></p>
       </div>
       <div class="col-12">
         <button type="submit" class="btn btn-primary">Add</button>
