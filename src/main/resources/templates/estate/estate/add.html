@@ -16,18 +16,22 @@
             <div class="col-12">
                 <label for="address" class="form-label">Address</label>
                 <input th:field="*{address}" type="text" class="form-control" id="address">
+                <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" style="color: red"></p>
             </div>
             <div class="col-6">
                 <label for="bedrooms" class="form-label">Bedrooms</label>
                 <input th:field="*{bedrooms}" type="number" class="form-control" id="bedrooms">
+                <p th:if="${#fields.hasErrors('bedrooms')}" th:errors="*{bedrooms}" style="color: red"></p>
             </div>
             <div class="col-6">
                 <label for="bathrooms" class="form-label">Bathrooms</label>
                 <input th:field="*{bathrooms}" type="number" class="form-control" id="bathrooms">
+                <p th:if="${#fields.hasErrors('bathrooms')}" th:errors="*{bathrooms}" style="color: red"></p>
             </div>
             <div class="col-12">
                 <label for="price" class="form-label">Price</label>
                 <input th:field="*{price}" type="number" class="form-control" id="price">
+                <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}" style="color: red"></p>
             </div>
             <div class="col-12">
                 <button type="submit" class="btn btn-primary">Add</button>

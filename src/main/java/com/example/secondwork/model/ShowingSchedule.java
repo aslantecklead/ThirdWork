@@ -11,7 +11,7 @@ import java.util.Date;
 @Table(name = "showingschedule")
 public class ShowingSchedule {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotBlank(message = "Field 'Property' can not be blank!")
     private String property;

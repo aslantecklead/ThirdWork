@@ -2,9 +2,11 @@ package com.example.secondwork.controller;
 
 import com.example.secondwork.model.Deal;
 import com.example.secondwork.repository.DealRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,4 +36,21 @@ public class DealController {
         model.addAttribute("deal", deal);
         return "estate/deal/show";
     }
+
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public String create(Deal deal) {
+        return "estate/deal/add";
+    }
+
+    @RequestMapping(value = "/store", method = RequestMethod.POST)
+    public String store(@Valid Deal deal, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "estate/deal/add";
+        }
+        dealRepository.save(deal);
+        model.addAttribute("deal", dealRepository.findAll());
+        return "redirect:/deals";
+    }
+    
+    
 }

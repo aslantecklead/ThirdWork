@@ -1,19 +1,22 @@
 package com.example.secondwork.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "offer")
 public class Offer {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotBlank(message = "Field 'Description' can not be blank!")
     private String propertyDescription;
-    @NotBlank(message = "Field 'Price' can not be blank!")
+    @NotNull(message = "Field 'Price' can not be null!")
+    @Min(value = 0, message = "Field 'Price' must be a positive number!")
     private double price;
-    @NotBlank(message = "Field 'Agent Name' can not be blank!")
+    @NotNull(message = "Field 'Agent Name' can not be null!")
     private String agentName;
 
     public Offer(int id, String propertyDescription, double price, String agentName) {

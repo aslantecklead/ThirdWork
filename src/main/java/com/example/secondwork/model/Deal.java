@@ -3,6 +3,7 @@ package com.example.secondwork.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -10,14 +11,15 @@ import java.util.Date;
 @Table(name = "deal")
 public class Deal {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotBlank(message = "Field 'Property' can not be blank!")
     private String property;
     @NotBlank(message = "Field 'Price' can not be blank!")
     private double price;
     @NotNull(message = "Field 'Date' can not be blank!")
-    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
     private Date date;
 
     public Deal(int id, String property, double price, Date date) {

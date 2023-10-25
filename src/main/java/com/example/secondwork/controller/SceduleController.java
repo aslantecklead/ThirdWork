@@ -1,10 +1,13 @@
 package com.example.secondwork.controller;
 
+import com.example.secondwork.model.Deal;
 import com.example.secondwork.model.ShowingSchedule;
 import com.example.secondwork.repository.SceduleRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,5 +38,18 @@ public class SceduleController {
         return "estate/showing-schedule/show";
     }
 
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public String create(Deal deal) {
+        return "estate/showing-schedule/add";
+    }
 
+    @RequestMapping(value = "/store", method = RequestMethod.POST)
+    public String store(@Valid ShowingSchedule showingSchedule, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "estate/showing-schedule/add";
+        }
+        sceduleRepository.save(showingSchedule);
+        model.addAttribute("deal", sceduleRepository.findAll());
+        return "redirect:/showing-schedules";
+    }
 }

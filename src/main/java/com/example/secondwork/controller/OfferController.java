@@ -1,10 +1,13 @@
 package com.example.secondwork.controller;
 
+import com.example.secondwork.model.Estate;
 import com.example.secondwork.model.Offer;
 import com.example.secondwork.repository.OfferRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,5 +38,20 @@ public class OfferController {
         return "estate/offer/show";
     }
 
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public String create(Estate estate) {
+        return "estate/offer/add";
+    }
 
+    @RequestMapping(value = "/store", method = RequestMethod.POST)
+    public String store(@Valid Offer offer, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "estate/offer/add";
+        }
+        offerRepository.save(offer);
+        model.addAttribute("offer", offerRepository.findAll());
+        return "redirect:/offers";
+    }
+    
+    
 }
