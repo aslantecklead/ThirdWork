@@ -4,6 +4,7 @@ import com.example.secondwork.model.Client;
 import com.example.secondwork.repository.ClientRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,7 +26,7 @@ public class ClientController {
 
     @GetMapping()
     public String getClients(Model model) {
-        List<Client> clients = clientRepository.findAll();
+        List<Client> clients = clientRepository.findAll(Sort.by(Sort.Order.asc("id")));
         model.addAttribute("clients", clients);
         return "estate/client/index";
     }
@@ -52,5 +53,34 @@ public class ClientController {
         return "redirect:/clients";
     }
 
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    public String getCat(Model model, @PathVariable("id") int id) {
+        Client client = clientRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("This client does not exist! ->  " + id));
+        model.addAttribute("client", client);
+        return "estate/client/update";
+    }
 
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    public String update(@PathVariable("id") int id, @Valid Client client, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "estate/client/update";
+        }
+
+        Client existingClient = clientRepository.findById(id).orElse(null);
+
+        if (existingClient == null) {
+            return "redirect:/clients";
+        }
+
+        existingClient.setName(client.getName());
+        existingClient.setEmail(client.getEmail());
+        existingClient.setPhonenumber(client.getPhonenumber());
+        existingClient.setBudget(client.getBudget());
+
+        clientRepository.save(existingClient);
+
+        return "redirect:/clients";
+    }
+
+    
 }

@@ -1,7 +1,9 @@
 package com.example.secondwork.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "client")
@@ -16,8 +18,10 @@ public class Client {
     @NotBlank(message = "Field 'Phone Number' can not be blank!")
 
     private String phonenumber;
-    @NotBlank(message = "Field 'Budget' can not be blank!")
 
+    @Column(name = "budget")
+    @NotNull
+    @Min(value = 0, message = "Budget must be a positive number")
     private double budget;
     public Client(int id, String name, String email, String phoneNumber, double budget) {
         this.id = id;
