@@ -1,80 +1,37 @@
 package com.example.secondwork.controller;
 
-import com.example.secondwork.CrudController;
-import com.example.secondwork.dao.DealDAO;
 import com.example.secondwork.model.Deal;
-import jakarta.validation.Valid;
+import com.example.secondwork.repository.DealRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/deals")
 public class DealController {
-    private final DealDAO dealDAO;
-    CrudController _crudController;
-
+    private final DealRepository dealRepository;
     @Autowired
-    public DealController(DealDAO dealDAO) {
-        this.dealDAO = dealDAO;
-        _crudController = new CrudController(dealDAO);
+    public DealController(DealRepository dealRepository) {
+        this.dealRepository = dealRepository;
     }
 
     @GetMapping()
-    public String index(Model model) {
-        model.addAttribute("deals", dealDAO.index());
+    public String getDeals(Model model) {
+        List<Deal> deal = dealRepository.findAll();
+        model.addAttribute("deals", deal);
         return "estate/deal/index";
     }
 
-    @GetMapping("/{id}")
-    public String show(@PathVariable("id") long id, Model model) {
-        Deal deal = dealDAO.show(id);
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public String getDeal(Model model, @PathVariable("id") int id) {
+        Deal deal = dealRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("This deal does not exist! ->  " + id));
         model.addAttribute("deal", deal);
         return "estate/deal/show";
     }
-
-    @GetMapping("/create")
-    public String create(Model model) {
-        model.addAttribute("title", "Make new deal");
-        model.addAttribute("deal", new Deal());
-        return "estate/deal/add";
-    }
-
-    @PostMapping("/store")
-    public String store(Model model, @Valid @ModelAttribute("deal") Deal deal) {
-        _crudController.insert(deal);
-        return "redirect:/deals";
-    }
-
-    @GetMapping("/edit/{id}")
-    public String edit(@PathVariable("id") int id, Model model) {
-        Deal deal = dealDAO.show(id);
-        if (deal == null) {
-            return "redirect:/clients";
-        }
-        model.addAttribute("deal", deal);
-        model.addAttribute("title", "Editing Client");
-        return "estate/deal/update";
-    }
-
-    @PostMapping("/update/{id}")
-    public String update(@PathVariable("id") int id, @Valid @ModelAttribute("deal") Deal deal) {
-        deal.setId(id);
-        _crudController.update(deal);
-        return "redirect:/deals";
-    }
-
-    @PostMapping("/delete/{id}")
-    String delete(Model model, @PathVariable("id") int id){
-        Deal deal = dealDAO.show(id);
-        if(deal == null){
-            return "redirect:/deals";
-        }
-        deal.setId(id);
-        _crudController.delete(deal);
-        return "redirect:/deals";
-    }
-
-
 }

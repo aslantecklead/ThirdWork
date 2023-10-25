@@ -1,81 +1,39 @@
 package com.example.secondwork.controller;
 
-import com.example.secondwork.CrudController;
-import com.example.secondwork.dao.OfferDAO;
 import com.example.secondwork.model.Offer;
-import jakarta.validation.Valid;
+import com.example.secondwork.repository.OfferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
 @Controller
 @RequestMapping("/offers")
 public class OfferController {
-    private final OfferDAO offerDAO;
-    CrudController _crudController;
-
+    private final OfferRepository offerRepository;
     @Autowired
-    public OfferController(OfferDAO offerDAO) {
-        this.offerDAO = offerDAO;
-        _crudController = new CrudController(offerDAO);
+    public OfferController(OfferRepository offerRepository) {
+        this.offerRepository = offerRepository;
     }
 
     @GetMapping()
-    public String index(Model model) {
-        List<Offer> offers = offerDAO.index();
+    public String getDeals(Model model) {
+        List<Offer> offers = offerRepository.findAll();
         model.addAttribute("offers", offers);
         return "estate/offer/index";
     }
 
-    @GetMapping("/{id}")
-    public String show(@PathVariable("id") long id, Model model) {
-        Offer offer = offerDAO.show(id);
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public String getOffer(Model model, @PathVariable("id") int id) {
+        Offer offer = offerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("This offer does not exist! ->  " + id));
         model.addAttribute("offer", offer);
         return "estate/offer/show";
     }
 
-    @GetMapping("/create")
-    public String create(Model model) {
-        model.addAttribute("title", "Add new client");
-        model.addAttribute("offer", new Offer());
-        return "estate/offer/add";
-    }
 
-    @PostMapping("/store")
-    public String store(Model model, @Valid @ModelAttribute("offer") Offer offer) {
-        _crudController.insert(offer);
-        return "redirect:/offers";
-    }
-
-    @GetMapping("/edit/{id}")
-    public String edit(@PathVariable("id") int id, Model model) {
-        Offer offer = offerDAO.show(id);
-        if (offer == null) {
-            return "redirect:/offers";
-        }
-        model.addAttribute("offer", offer);
-        model.addAttribute("title", "Editing Client");
-        return "estate/offer/update";
-    }
-
-    @PostMapping("/update/{id}")
-    public String update(@PathVariable("id") int id, @Valid @ModelAttribute("offer") Offer offer) {
-        offer.setId(id);
-        _crudController.update(offer);
-        return "redirect:/offers";
-    }
-
-    @PostMapping("/delete/{id}")
-    String delete(Model model, @PathVariable("id") int id){
-        Offer offer = offerDAO.show(id);
-        if(offer == null){
-            return "redirect:/offers";
-        }
-        offer.setId(id);
-        _crudController.delete(offer);
-        return "redirect:/offers";
-    }
 }

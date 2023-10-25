@@ -8,7 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 @Entity
-@Table(name = "showingSchedule")
+@Table(name = "showingschedule")
 public class ShowingSchedule {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

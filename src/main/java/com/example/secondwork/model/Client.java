@@ -15,7 +15,7 @@ public class Client {
     private String email;
     @NotBlank(message = "Field 'Phone Number' can not be blank!")
 
-    private String phoneNumber;
+    private String phonenumber;
     @NotBlank(message = "Field 'Budget' can not be blank!")
 
     private double budget;
@@ -23,7 +23,7 @@ public class Client {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.phoneNumber = phoneNumber;
+        this.phonenumber = phoneNumber;
         this.budget = budget;
     }
 
@@ -37,8 +37,8 @@ public class Client {
         return email;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhonenumber() {
+        return phonenumber;
     }
 
     public double getBudget() {
@@ -53,8 +53,8 @@ public class Client {
         this.email = email;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhonenumber(String phoneNumber) {
+        this.phonenumber = phoneNumber;
     }
 
     public void setBudget(double budget) {
