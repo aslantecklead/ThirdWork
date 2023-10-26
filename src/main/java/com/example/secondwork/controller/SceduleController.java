@@ -4,6 +4,7 @@ import com.example.secondwork.model.ShowingSchedule;
 import com.example.secondwork.repository.SceduleRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,7 +26,7 @@ public class SceduleController {
 
     @GetMapping()
     public String getShowingSchedules(Model model) {
-        List<ShowingSchedule> showingSchedules = sceduleRepository.findAll();
+        List<ShowingSchedule> showingSchedules = sceduleRepository.findAll(Sort.by(Sort.Order.asc("id")));
         model.addAttribute("showingSchedules", showingSchedules);
         return "estate/showing-schedule/index";
     }
@@ -51,4 +52,33 @@ public class SceduleController {
         model.addAttribute("deal", sceduleRepository.findAll());
         return "redirect:/showing-schedules";
     }
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    public String edit(Model model, @PathVariable("id") int id) {
+        ShowingSchedule showingSchedule = sceduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("This offer does not exist! ->  " + id));
+        model.addAttribute("showingSchedule", showingSchedule);
+        return "estate/offer/update";
+    }
+
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    public String update(@PathVariable("id") int id, @Valid ShowingSchedule showingSchedule, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "estate/offer/update";
+        }
+
+        ShowingSchedule existingSchedule = sceduleRepository.findById(id).orElse(null);
+
+        if (existingSchedule == null) {
+            return "redirect:/showing-schedules";
+        }
+
+        existingSchedule.setProperty(showingSchedule.getProperty());
+        existingSchedule.setDate(showingSchedule.getDate());
+        existingSchedule.setClientName(showingSchedule.getClientName());
+
+        sceduleRepository.save(existingSchedule);
+
+        return "redirect:/showing-schedules";
+    }
+
 }

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${title}">Edit Offer</title>
+    <title th:text="${title}">Edit Showing Schedule</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
           rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
@@ -11,22 +11,22 @@
 <body>
 <main class="bd-main order-1">
     <div class="container mt-5 p-2">
-        <h1 class="text-center">Edit Offer</h1>
-        <form th:action="@{/offers/update/{id}(id=${offer.getId()})}" th:object="${offer}" method="post" class="row g-3">
+        <h1 class="text-center">Edit Showing Schedule</h1>
+        <form th:action="@{/showing-schedules/update/{id}(id=${showingSchedule.getId()})}" th:object="${showingSchedule}" method="post" class="row g-3">
             <div class="col-12">
-                <label for="propertyDescription" class="form-label">Property Description</label>
-                <input th:field="*{propertyDescription}" type="text" class="form-control" id="propertyDescription">
-                <span th:if="${#fields.hasErrors('propertyDescription')}" th:errors="*{propertyDescription}" class="text-danger"></span>
+                <label for="property" class="form-label">Property</label>
+                <input th:field="*{property}" type="text" class="form-control" id="property">
+                <span th:if="${#fields.hasErrors('property')}" th:errors="*{property}" class="text-danger"></span>
             </div>
             <div class="col-12">
-                <label for="price" class="form-label">Price</label>
-                <input th:field="*{price}" type="number" class="form-control" id="price">
-                <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="text-danger"></span>
+                <label for="date" class="form-label">Date</label>
+                <input th:field="*{date}" type="date" class="form-control" id="date">
+                <span th:if="${#fields.hasErrors('date')}" th:errors="*{date}" class="text-danger"></span>
             </div>
             <div class="col-12">
-                <label for="agentName" class="form-label">Agent Name</label>
-                <input th:field="*{agentName}" type="text" class="form-control" id="agentName">
-                <span th:if="${#fields.hasErrors('agentName')}" th:errors="*{agentName}" class="text-danger"></span>
+                <label for="clientName" class="form-label">Client Name</label>
+                <input th:field="*{clientName}" type="text" class="form-control" id="clientName">
+                <span th:if="${#fields.hasErrors('clientName')}" th:errors="*{clientName}" class="text-danger"></span>
             </div>
             <div class="col-12">
                 <button type="submit" class="btn btn-primary">Save Changes</button>

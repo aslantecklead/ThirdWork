@@ -13,6 +13,7 @@ public class ShowingSchedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @NotBlank(message = "Field 'Property' can not be blank!")
     private String property;
 
@@ -22,7 +23,6 @@ public class ShowingSchedule {
 
     @NotBlank(message = "Field 'Client Name' can not be blank!")
     private String clientName;
-
 
     public ShowingSchedule(int id, String property, Date date, String clientName) {
         this.id = id;
@@ -35,7 +35,7 @@ public class ShowingSchedule {
 
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
