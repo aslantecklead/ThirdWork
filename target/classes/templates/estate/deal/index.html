@@ -31,7 +31,8 @@
                 <a class="btn btn-warning btn-block mb-2" th:href="@{/deals/edit/{id}(id=${deal.getId()})}">Edit</a>
             </td>
             <td>
-                <form th:action="@{/deals/delete/{id}(id=${deal.getId()})}" method="post">
+                <form th:action="@{/deals/delete/{id}(id=${deal.id})}" method="post">
+                    <input type="hidden" name="_method" value="DELETE">
                     <button class="btn btn-danger" type="submit">Delete</button>
                 </form>
             </td>
