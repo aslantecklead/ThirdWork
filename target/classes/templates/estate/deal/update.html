@@ -16,14 +16,17 @@
             <div class="col-12">
                 <label for="property" class="form-label">Property</label>
                 <input th:field="*{property}" type="text" class="form-control" id="property">
+                <span th:if="${#fields.hasErrors('property')}" th:errors="*{property}" class="text-danger"></span>
             </div>
             <div class="col-12">
                 <label for="price" class="form-label">Price</label>
                 <input th:field="*{price}" type="number" class="form-control" id="price">
+                <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="text-danger"></span>
             </div>
             <div class="col-12">
                 <label for="date" class="form-label">Deal Date</label>
                 <input th:field="*{date}" type="date" class="form-control" id="date" placeholder="YYYY-MM-DD">
+                <span th:if="${#fields.hasErrors('date')}" th:errors="*{date}" class="text-danger"></span>
             </div>
             <div class="col-12">
                 <button type="submit" class="btn btn-primary">Save Changes</button>

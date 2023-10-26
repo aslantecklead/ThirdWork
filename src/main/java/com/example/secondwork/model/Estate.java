@@ -1,7 +1,9 @@
 package com.example.secondwork.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "estate")
@@ -9,14 +11,20 @@ public class Estate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @NotBlank(message = "Field 'Address' can not be blank!")
     private String address;
-    @NotBlank(message = "Field 'Bedrooms' can not be blank!")
+
+    @NotNull(message = "Field 'Bedrooms' can not be blank!")
+    @Min(value = 1, message = "Bedrooms must be at least 1")
     private int bedrooms;
-    @NotBlank(message = "Field 'Bathrooms' can not be blank!")
+
+    @NotNull(message = "Field 'Bathrooms' can not be blank!")
+    @Min(value = 1, message = "Bathrooms must be at least 1")
     private int bathrooms;
-    @NotBlank(message = "Field 'Price' can not be blank!")
-    private double price;
+
+    @NotNull(message = "Field 'Price' can not be blank")
+    private Double price;
 
     public Estate(int id, String address, int bedrooms, int bathrooms, double price) {
         this.id = id;
