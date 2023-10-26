@@ -4,6 +4,7 @@ import com.example.secondwork.model.Offer;
 import com.example.secondwork.repository.OfferRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,7 +26,7 @@ public class OfferController {
 
     @GetMapping()
     public String getDeals(Model model) {
-        List<Offer> offers = offerRepository.findAll();
+        List<Offer> offers = offerRepository.findAll(Sort.by(Sort.Order.asc("id")));
         model.addAttribute("offers", offers);
         return "estate/offer/index";
     }
@@ -52,5 +53,32 @@ public class OfferController {
         return "redirect:/offers";
     }
 
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    public String edit(Model model, @PathVariable("id") int id) {
+        Offer offer = offerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("This offer does not exist! ->  " + id));
+        model.addAttribute("offer", offer);
+        return "estate/offer/update";
+    }
+
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    public String update(@PathVariable("id") int id, @Valid Offer offer, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "estate/offer/update";
+        }
+
+        Offer existingOffer = offerRepository.findById(id).orElse(null);
+
+        if (existingOffer == null) {
+            return "redirect:/offers";
+        }
+
+        existingOffer.setPropertyDescription(offer.getPropertyDescription());
+        existingOffer.setPrice(offer.getPrice());
+        existingOffer.setAgentName(offer.getAgentName());
+
+        offerRepository.save(existingOffer);
+
+        return "redirect:/offers";
+    }
 
 }

@@ -54,14 +54,14 @@ public class EstateController {
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public String getCat(Model model, @PathVariable("id") int id) {
+    public String edit(Model model, @PathVariable("id") int id) {
         Estate estate = estateRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("This estate does not exist! ->  " + id));
         model.addAttribute("estate", estate);
         return "estate/estate/update";
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
-    public String updateEstate(@PathVariable("id") int id, @Valid Estate estate, BindingResult result, Model model) {
+    public String update(@PathVariable("id") int id, @Valid Estate estate, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "estate/estate/update";
         }

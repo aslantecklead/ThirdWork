@@ -16,14 +16,17 @@
             <div class="col-12">
                 <label for="propertyDescription" class="form-label">Property Description</label>
                 <input th:field="*{propertyDescription}" type="text" class="form-control" id="propertyDescription">
+                <span th:if="${#fields.hasErrors('propertyDescription')}" th:errors="*{propertyDescription}" class="text-danger"></span>
             </div>
             <div class="col-12">
                 <label for="price" class="form-label">Price</label>
                 <input th:field="*{price}" type="number" class="form-control" id="price">
+                <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="text-danger"></span>
             </div>
             <div class="col-12">
                 <label for="agentName" class="form-label">Agent Name</label>
                 <input th:field="*{agentName}" type="text" class="form-control" id="agentName">
+                <span th:if="${#fields.hasErrors('agentName')}" th:errors="*{agentName}" class="text-danger"></span>
             </div>
             <div class="col-12">
                 <button type="submit" class="btn btn-primary">Save Changes</button>
