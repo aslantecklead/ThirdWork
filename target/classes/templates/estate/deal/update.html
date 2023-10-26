@@ -12,7 +12,7 @@
 <main class="bd-main order-1">
     <div class="container mt-5 p-2">
         <h1 class="text-center">Edit Deal</h1>
-        <form th:action="@{/deals/update/{id}(id=${deal.getId()})}" th:object="${deal}" method="post" class="row g-3">
+        <form th:action="@{/deals/update/{id}(id=${deal.id})}" th:object="${deal}" method="post" class="row g-3">
             <div class="col-12">
                 <label for="property" class="form-label">Property</label>
                 <input th:field="*{property}" type="text" class="form-control" id="property">

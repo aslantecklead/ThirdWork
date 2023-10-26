@@ -13,14 +13,18 @@ public class Deal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @NotBlank(message = "Field 'Property' can not be blank!")
     private String property;
-    @NotBlank(message = "Field 'Price' can not be blank!")
+
+    @NotNull(message = "Field 'Price' can not be blank!")
     private double price;
-    @NotNull(message = "Field 'Date' can not be blank!")
+
+    @NotNull(message = "Field 'Date' can not be blank.")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date date;
+
 
     public Deal(int id, String property, double price, Date date) {
         this.id = id;

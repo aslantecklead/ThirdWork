@@ -4,6 +4,7 @@ import com.example.secondwork.model.Deal;
 import com.example.secondwork.repository.DealRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,7 +26,7 @@ public class DealController {
 
     @GetMapping()
     public String getDeals(Model model) {
-        List<Deal> deal = dealRepository.findAll();
+        List<Deal> deal = dealRepository.findAll(Sort.by(Sort.Order.asc("id")));
         model.addAttribute("deals", deal);
         return "estate/deal/index";
     }
@@ -51,6 +52,32 @@ public class DealController {
         model.addAttribute("deal", dealRepository.findAll());
         return "redirect:/deals";
     }
-    
-    
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    public String getCat(Model model, @PathVariable("id") int id) {
+        Deal deal = dealRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("This deal does not exist! ->  " + id));
+        model.addAttribute("deal", deal);
+        return "estate/deal/update";
+    }
+
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    public String update(@PathVariable("id") int id, @Valid Deal deal, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "estate/deal/update";
+        }
+
+        Deal existingDeal = dealRepository.findById(id).orElse(null);
+
+        if (existingDeal == null) {
+            return "redirect:/deals";
+        }
+
+        existingDeal.setProperty(deal.getProperty());
+        existingDeal.setPrice(deal.getPrice());
+        existingDeal.setDate(deal.getDate());
+
+        dealRepository.save(existingDeal);
+
+        return "redirect:/deals";
+    }
 }
